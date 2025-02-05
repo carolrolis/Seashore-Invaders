@@ -3,6 +3,7 @@ function preload() {
   fundo = loadImage("assets/fundo.png");
   titulo = loadImage("assets/titulo.png");
   instrucoesImg = loadImage("assets/instrucoes.png");
+  instrucoes2Img = loadImage("assets/instrucoes2.png");
   gameOverImg = loadImage("assets/gameOver.png");
   winImg = loadImage("assets/win.png");
 
@@ -34,8 +35,9 @@ let estados = {
   menuOn: true,
   jogandoOn: false,
   instrucoesOn: false,
+  instrucoes2On: false,
   gameOverOn: false,
-  winOn: false
+  winOn: false,
 };
 
 // ====================== Variáveis globais ======================
@@ -259,7 +261,7 @@ function inimigoDisplay() {
       // Inimigo morre
       if (inimigo.recebeuTiro()) {
         tipos.splice(tipos.indexOf(inimigo), 1);
-        if(inimigos.every(tipo => tipo.length === 0)) {
+        if (inimigos.every((tipo) => tipo.length === 0)) {
           estados.jogandoOn = false;
           estados.winOn = true;
         }
@@ -379,6 +381,30 @@ function instrucoes() {
     estados.instrucoesOn = false;
     botoesMostrar();
   }
+  if (
+    mouseIsPressed &&
+    mouseX > 332 &&
+    mouseX < 460 &&
+    mouseY > 445 &&
+    mouseY < 472
+  ) {
+    estados.instrucoesOn = false;
+    estados.instrucoes2On = true;
+  }
+}
+
+function instrucoes2() {
+  image(instrucoes2Img, 0, 0);
+  if (
+    mouseIsPressed &&
+    mouseX > 17 &&
+    mouseX < 63 &&
+    mouseY > 15 &&
+    mouseY < 50
+  ) {
+    estados.instrucoes2On = false;
+    estados.instrucoesOn = true;
+  }
 }
 
 function reiniciarJogo() {
@@ -420,11 +446,14 @@ function setup() {
 }
 
 function draw() {
+  console.log(mouseX, mouseY);
   background(fundo);
   if (estados.menuOn) {
     menu();
   } else if (estados.instrucoesOn) {
     instrucoes();
+  } else if (estados.instrucoes2On) {
+    instrucoes2();
   } else if (estados.jogandoOn) {
     player.mover();
     if (player.estaAtirando) {
