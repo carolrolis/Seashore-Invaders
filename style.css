@@ -2,6 +2,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  background-color: black
 }
 
 canvas {
@@ -12,6 +13,8 @@ canvas {
   position: relative;
   width: fit-content;
   margin: auto;
+  margin-top: 25px;
+  border: 1px solid white;
 }
 
 #botao-div {
