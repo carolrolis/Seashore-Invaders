@@ -1,0 +1,36 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+#canvas-div {
+  position: relative;
+  width: fit-content;
+  margin: auto;
+}
+
+#botao-div {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+button {
+  width: 150px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  background: #8DA1BC;
+}
+
+button:hover {
+  background: #111649;
+}
