@@ -328,7 +328,9 @@ function tirosInimigosDisplay() {
 }
 
 function tirosInimigosVel() {
-  setInterval(sortearAtirador, 2000);
+  if(frameCount % 100 == 0) {
+    sortearAtirador();
+  } 
 }
 
 // ====================== Funções Menu ======================
@@ -337,6 +339,7 @@ function menu() {
   fill(255);
   text("Por Ana Carolina Furtado", width / 2 - 55, height - 20);
 }
+
 function botoes() {
   canvasContainer = createDiv();
   canvasContainer.id("canvas-div");
@@ -441,7 +444,6 @@ function setup() {
 
   iniciarPlayer();
   iniciarInimigos();
-  tirosInimigosVel();
   barreiras = gerarLinhaBarreiras(10, height - 160, 4, 105);
 }
 
@@ -462,6 +464,7 @@ function draw() {
 
     barreirasDisplay();
     inimigoDisplay();
+    tirosInimigosVel();
     tirosInimigosDisplay();
   } else if (estados.gameOverOn) {
     gameOver();
