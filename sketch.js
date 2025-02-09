@@ -50,7 +50,7 @@ let orcas = [];
 let lulas = [];
 let inimigos = [];
 let direcaoInimigos = 1;
-let velInimigos = 1;
+let velInimigos = 0.5;
 let tirosInimigosArr = [];
 
 // ====================== Classes ======================
@@ -180,8 +180,8 @@ class Inimigo {
 
   recebeuTiro() {
     if (
-      tiroPlayer.x > this.x + 10 &&
-      tiroPlayer.x < this.x + this.w - 10 &&
+      tiroPlayer.x > this.x - 5 &&
+      tiroPlayer.x < this.x + this.w - 5 &&
       tiroPlayer.y < this.y + this.h
     ) {
       player.estaAtirando = false;
@@ -271,6 +271,7 @@ function inimigoDisplay() {
 
   if (atingiuBorda) {
     direcaoInimigos *= -1;
+    velInimigos+= 0.1;
     for (let tipos of inimigos) {
       for (let inimigo of tipos) {
         inimigo.descer();
@@ -420,6 +421,7 @@ function reiniciarJogo() {
   tirosInimigosArr = [];
   sortearAtirador();
   barreiras = gerarLinhaBarreiras(10, height - 160, 4, 105);
+  velInimigos = 0.5;
 }
 
 function gameOver() {
