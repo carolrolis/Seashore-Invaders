@@ -176,6 +176,9 @@ class Inimigo {
     if (this.y < height - 60) {
       this.y += 10;
     }
+    if (this.y == tartaruga.y) {
+      gameOver();
+    }
   }
 
   recebeuTiro() {
@@ -266,12 +269,24 @@ function inimigoDisplay() {
           estados.winOn = true;
         }
       }
+
+      for (let barreira of barreiras) {
+        if (
+          inimigo.y + inimigo.h >= barreira.y &&
+          inimigo.x + inimigo.w >= barreira.x &&
+          inimigo.x <= barreira.x + barreira.w
+        ) {
+          estados.jogandoOn = false;
+          estados.gameOverOn = true;
+          return;
+        }
+      }
     }
   }
 
   if (atingiuBorda) {
     direcaoInimigos *= -1;
-    velInimigos+= 0.1;
+    velInimigos += 0.1;
     for (let tipos of inimigos) {
       for (let inimigo of tipos) {
         inimigo.descer();
@@ -329,9 +344,9 @@ function tirosInimigosDisplay() {
 }
 
 function tirosInimigosVel() {
-  if(frameCount % 100 == 0) {
+  if (frameCount % 100 == 0) {
     sortearAtirador();
-  } 
+  }
 }
 
 // ====================== Funções Menu ======================
@@ -450,7 +465,6 @@ function setup() {
 }
 
 function draw() {
-  console.log(mouseX, mouseY);
   background(fundo);
   if (estados.menuOn) {
     menu();
