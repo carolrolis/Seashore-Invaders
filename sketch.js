@@ -28,6 +28,12 @@ function preload() {
   lula2 = loadImage("assets/lulaSprites/lula2.png");
   lula3 = loadImage("assets/lulaSprites/lula3.png");
   lulaTiroImg = loadImage("assets/lulaSprites/lulaTiro.png");
+
+  somFundo = loadSound("assets/sounds/Slugwood Shores - Pedro Silva.mp3");
+  somMorreuTartaruga = loadSound("assets/sounds/somMorreuTartaruga.mp3");
+  somMorreuInimigo = loadSound("assets/sounds/somMorreuInimigo.mp3");
+  somPerdeu = loadSound("assets/sounds/somPerdeu.mp3");
+  somGanhou = loadSound("assets/sounds/somGanhou.mp3");
 }
 
 // ====================== Configurações menu ======================
@@ -52,6 +58,7 @@ let inimigos = [];
 let direcaoInimigos = 1;
 let velInimigos = 0.5;
 let tirosInimigosArr = [];
+let somMorrer;
 
 // ====================== Classes ======================
 class Tartaruga {
@@ -263,8 +270,10 @@ function inimigoDisplay() {
 
       // Inimigo morre
       if (inimigo.recebeuTiro()) {
+        somMorreuInimigo.play();
         tipos.splice(tipos.indexOf(inimigo), 1);
         if (inimigos.every((tipo) => tipo.length === 0)) {
+          somGanhou.play();
           estados.jogandoOn = false;
           estados.winOn = true;
         }
@@ -276,6 +285,7 @@ function inimigoDisplay() {
           inimigo.x + inimigo.w >= barreira.x &&
           inimigo.x <= barreira.x + barreira.w
         ) {
+          somPerdeu.play();
           estados.jogandoOn = false;
           estados.gameOverOn = true;
           return;
@@ -336,6 +346,8 @@ function tirosInimigosDisplay() {
       tiroInimigo.x >= tartaruga.x &&
       tiroInimigo.x <= tartaruga.x + 58
     ) {
+      somMorreuTartaruga.play();
+      somPerdeu.play();
       tirosInimigosArr.splice(i, 1);
       estados.jogandoOn = false;
       estados.gameOverOn = true;
@@ -427,6 +439,8 @@ function instrucoes2() {
 }
 
 function reiniciarJogo() {
+  somPerdeu.stop();
+  somGanhou.stop();
   estados.gameOverOn = false;
   estados.jogandoOn = false;
   estados.menuOn = true;
@@ -455,6 +469,7 @@ function keyPressed() {
 
 // ====================== Funções Default ======================
 function setup() {
+  somFundo.loop();
   botoes();
   createCanvas(400, 500).parent(canvasContainer);
   botaoContainer.position(width / 3, height / 2);
