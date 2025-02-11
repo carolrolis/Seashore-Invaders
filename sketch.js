@@ -190,8 +190,8 @@ class Inimigo {
 
   recebeuTiro() {
     if (
-      tiroPlayer.x > this.x - 5 &&
-      tiroPlayer.x < this.x + this.w - 5 &&
+      tiroPlayer.x > this.x + 10 &&
+      tiroPlayer.x < this.x + this.w - 10 &&
       tiroPlayer.y < this.y + this.h
     ) {
       player.estaAtirando = false;
