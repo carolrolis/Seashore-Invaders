@@ -58,7 +58,6 @@ let inimigos = [];
 let direcaoInimigos = 1;
 let velInimigos = 0.5;
 let tirosInimigosArr = [];
-let somMorrer;
 
 // ====================== Classes ======================
 class Tartaruga {
@@ -161,12 +160,8 @@ class Inimigo {
   }
 
   MEF() {
-    if (frameCount % 10 === 0 && this.spriteAtual === 1) {
-      this.spriteAtual = 2;
-    } else if (frameCount % 20 === 0 && this.spriteAtual === 2) {
-      this.spriteAtual = 3;
-    } else if (frameCount % 30 === 0 && this.spriteAtual === 3) {
-      this.spriteAtual = 1;
+    if (frameCount % 10 === 0) {
+      this.spriteAtual = (this.spriteAtual % 3) + 1;
     }
   }
 
